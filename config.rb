@@ -1,12 +1,13 @@
 # Kubernetes Details: Instances
 $kube_version      = "ubuntu/xenial64"
-$kube_memory       = 1024
-$kube_vcpus        = 1
+$kube_memory       = 3072
+$kube_vcpus        = 3
 $kube_count        = 3
+$kube_disk_count   = 3
 $git_commit        = "6a7308d"
 $subnet            = "192.168.236"
 $public_iface      = "enp0s8"
-$forwarded_ports   = {}
+$forwarded_ports   = {6443 => 6443}
 
 # Ansible Declarations:
 #$number_etcd       = "kube[1:2]"

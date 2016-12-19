@@ -75,7 +75,28 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       end
       # Virtualbox Provider (Default --provider=virtualbox):
       kube.vm.provider "virtualbox" do |vb|
+ 
+        # We can't do --add "sata" because the vm will try to boot from it even if not bootable.  It won't try to boot from SAS.
+        #   https://www.virtualbox.org/manual/ch08.html
+        #unless File.exist?("disk-#{kb}-0.vdi")
+        #  vb.customize ["storagectl", :id,"--name", "VboxSas", "--add", "scsi", "--bootable", "off"]
+        #end
+        #unless File.exist?("disk-#{kb}-0.vdi")
+        #  vb.customize ["storagectl", :id,"--name", "IDE Controller", "--portcount", "30"]
+        #end
+        (0..$kube_disk_count-1).each do |kbd|
+          print kb, " disk"
+          puts kbd
+          unless File.exist?("disk-#{kb}-#{kbd}.vdi")
+            vb.customize [ "createmedium", "--filename", "disk-#{kb}-#{kbd}.vdi", "--size", 1024*1024 ]
+          end
+          # vb.customize [ "storageattach", :id, "--storagectl", "VboxSas", "--setuuid", "", "--port", 3+kbd, "--device", 0, "--type", "hdd", "--medium", "disk-#{kb}-#{kbd}.vdi" ]
+          vb.customize [ "storageattach", :id, "--storagectl", "SCSI Controller", "--setuuid", "", "--port", 3+kbd, "--device", 0, "--type", "hdd", "--medium", "disk-#{kb}-#{kbd}.vdi" ]
+        end
+
         vb.name = "kube#{kb}"
+        # vb.customize ["modifyvm", :id, "--usb", "on"]
+        #         # vb.customize ["modifyvm", :id, "--usbehci", "on"]
         vb.customize ["modifyvm", :id, "--memory", $kube_memory]
         vb.customize ["modifyvm", :id, "--cpus", $kube_vcpus]
       end
