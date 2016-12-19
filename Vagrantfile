@@ -85,8 +85,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         #  vb.customize ["storagectl", :id,"--name", "IDE Controller", "--portcount", "30"]
         #end
         (0..$kube_disk_count-1).each do |kbd|
-          print kb, " disk"
-          puts kbd
+          # print kb, " disk"
+          # puts kbd
           unless File.exist?("disk-#{kb}-#{kbd}.vdi")
             vb.customize [ "createmedium", "--filename", "disk-#{kb}-#{kbd}.vdi", "--size", 1024*1024 ]
           end
