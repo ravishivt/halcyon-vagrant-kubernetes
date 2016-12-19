@@ -1,3 +1,6 @@
 [submodule "halcyon-kubernetes"]
 	path = halcyon-kubernetes
-	url = https://github.com/ravishivt/halcyon-kubernetes.git
+	url = git@github.com:ravishivt/halcyon-kubernetes.git
+[submodule "gluster-kubernetes"]
+	path = gluster-kubernetes
+	url = git@github.com:ravishivt/gluster-kubernetes.git
