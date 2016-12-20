@@ -1,5 +1,8 @@
 # Kubernetes Details: Instances
 $kube_version      = "ubuntu/xenial64"
+# libvirt friendly images:
+# $kube_version      = "yk0/ubuntu-xenial"
+# $kube_version      = "elastic/ubuntu-16.04-x86_64"
 $kube_memory       = 3072
 $kube_vcpus        = 3
 $kube_count        = 3
