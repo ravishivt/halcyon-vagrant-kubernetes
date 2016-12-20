@@ -91,7 +91,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             vb.customize [ "createmedium", "--filename", "disk-#{kb}-#{kbd}.vdi", "--size", 1024*1024 ]
           end
           # vb.customize [ "storageattach", :id, "--storagectl", "VboxSas", "--setuuid", "", "--port", 3+kbd, "--device", 0, "--type", "hdd", "--medium", "disk-#{kb}-#{kbd}.vdi" ]
-          vb.customize [ "storageattach", :id, "--storagectl", "SCSI", "--setuuid", "", "--port", 3+kbd, "--device", 0, "--type", "hdd", "--medium", "disk-#{kb}-#{kbd}.vdi" ]
+          # vb.customize [ "storageattach", :id, "--storagectl", "SCSI", "--setuuid", "", "--port", 3+kbd, "--device", 0, "--type", "hdd", "--medium", "none" ]
+          vb.customize [ "storageattach", :id, "--storagectl", "SCSI Controller", "--setuuid", "", "--port", 3+kbd, "--device", 0, "--type", "hdd", "--medium", "disk-#{kb}-#{kbd}.vdi" ]
         end
 
         vb.name = "kube#{kb}"
